@@ -2,11 +2,15 @@ package com.example.android.theconnectseries;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by markvandermerwe on 3/5/16.
@@ -18,27 +22,32 @@ public class EventsFragment extends Fragment {
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
     private RecyclerView recyclerView;
+    private EventsAdapter adapter;
 
     public EventsFragment() {
     }
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-    public static EventsFragment newInstance(int sectionNumber) {
-        EventsFragment fragment = new EventsFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
+    public static List<Event> getData(){
+        List<Event> data = new ArrayList<>();
+        int[] icons = {R.drawable.logo_ames,R.drawable.logo_ames,R.drawable.logo_ames,R.drawable.logo_ames};
+        String[] titles = {"One","Two","Three","Four"};
+        for(int i = 0; i<icons.length && i<titles.length; i++){
+            Event current = new Event();
+            current.iconId= icons[i];
+            current.title = titles[i];
+            data.add(current);
+        }
+        return data;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.events_fragment, container, false);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.list_item);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerList);
+        adapter = new EventsAdapter(getActivity(),getData());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return rootView;
     }
 }
