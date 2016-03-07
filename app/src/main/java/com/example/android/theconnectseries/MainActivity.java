@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static ListAdapter listAdapter;
     static EventsFragment eventsFragment = new EventsFragment();
+    static InterestsFragment interestsFragment = new InterestsFragment();
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
 
             if(position==0){
-                return InterestsFragment.newInstance(position+1);
+                return interestsFragment;
             }else{
                 return eventsFragment;
             }
