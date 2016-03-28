@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
     public void getJsonInfo(){
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://192.168.1.100:8888/user_data.json";
-        Log.w("myApp", "Here now");
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -123,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("myApp", "Didn't work");
             }
         });
+        queue.add(jsonArrayRequest);
     }
 
     @Override
