@@ -51,4 +51,6 @@ public class InterestsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return rootView;
     }
+
+
 }
