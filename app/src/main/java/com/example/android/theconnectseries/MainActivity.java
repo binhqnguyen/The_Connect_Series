@@ -1,5 +1,6 @@
 package com.example.android.theconnectseries;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -47,10 +48,12 @@ public class MainActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+    String[] data;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static ListAdapter listAdapter;
     static EventsFragment eventsFragment = new EventsFragment();
     static InterestsFragment interestsFragment = new InterestsFragment();
+
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getInfo();
-        getJsonInfo();
+        //getJsonInfo();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -88,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.1.100:8888/user_data.json";
+        String url ="http://128.110.82.240:8888/user_data.json";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -96,11 +99,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.w("myApp", response);
+                        String delim = "[{ ,}:]+";
+                        String[] words = response.split(delim);
+                        for(int i=0;i<words.length;i++){
+                            Log.w("myApp", words[i]);
+                        }
+                        data = words;
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //textView.setText("That didn't work!");
+                Log.w("myApp", "No response.");
             }
         });
         // Add the request to the RequestQueue.
@@ -110,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
     public void getJsonInfo(){
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://192.168.1.100:8888/user_data.json";
+        /*
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -123,6 +134,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         queue.add(jsonArrayRequest);
+        */
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.w("myApp", "Got it.");
+                    }
+                }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.w("myApp", "Didn't work.");
+            }
+        });
+        queue.add(jsonObjectRequest);
     }
 
     @Override
