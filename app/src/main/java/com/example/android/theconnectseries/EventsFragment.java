@@ -32,15 +32,17 @@ public class EventsFragment extends Fragment {
     private RecyclerView recyclerView;
     private EventsAdapter adapter;
 
+    static String[] eventsTitle;
+
 
     public EventsFragment() {
     }
 
-    public static List<Event> getData(){
+    public static void getDatabaseData(){
         final String delim = "[{ ,}:]+";
         // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(MyApplication.getAppContext());
-        String url ="http://155.99.89.140:8888/user_data.json";
+        RequestQueue queue = VolleySingleton.getsInstance().getRequestQueue();
+        String url ="http://10.132.12.114:8888/user_data.json";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -48,9 +50,9 @@ public class EventsFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         Log.w("myApp", response);
-                        String[] words = response.split(delim);
-                        for(int i=0;i<words.length;i++) {
-                            Log.w("myApp", words[i]);
+                        eventsTitle = response.split(delim);
+                        for(int i=0;i<eventsTitle.length;i++) {
+                            Log.w("myApp", eventsTitle[i]);
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -62,7 +64,14 @@ public class EventsFragment extends Fragment {
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+        /*
+        for(int y=0;y<eventsFeed.length;y++) {
+            Log.w("myApp", eventsFeed[y]);
+        }
+        */
+    }
 
+    public static List<Event> getData(){
         List<Event> data = new ArrayList<>();
         int[] icons = {R.drawable.logo_ames,R.drawable.logo_ames,R.drawable.logo_ames,R.drawable.logo_ames};
         String[] titles = {"One","Two","Three","Four"};
