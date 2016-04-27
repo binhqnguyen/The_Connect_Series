@@ -42,14 +42,14 @@ public class EventsFragment extends Fragment {
         final String delim = "[{ ,}:]+";
         // Instantiate the RequestQueue.
         RequestQueue queue = VolleySingleton.getsInstance().getRequestQueue();
-        String url ="http://10.132.12.114:8888/user_data.json";
+        String url ="http://192.168.1.109:8888/user_data.json";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.w("myApp", response);
+                        Log.i("myApp", response);
                         eventsTitle = response.split(delim);
                         for(int i=0;i<eventsTitle.length;i++) {
                             Log.w("myApp", eventsTitle[i]);
@@ -73,8 +73,9 @@ public class EventsFragment extends Fragment {
 
     public static List<Event> getData(){
         List<Event> data = new ArrayList<>();
+        getDatabaseData();
         int[] icons = {R.drawable.logo_ames,R.drawable.logo_ames,R.drawable.logo_ames,R.drawable.logo_ames};
-        String[] titles = {"One","Two","Three","Four"};
+        String[] titles = {"Event One","Event Two","Event Three","Event Four"};
         for(int i = 0; i<icons.length && i<titles.length; i++){
             Event current = new Event();
             current.iconId= icons[i];
