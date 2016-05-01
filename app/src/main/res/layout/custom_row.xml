@@ -30,8 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/description"
-            android:text="Lorem ipsum dolor sit amet, usu ad putent omnium aliquip. Timeam molestiae sit ea. No his case verear, posse consulatu neglegentur at eos, has eu facilis copiosae."/>
-
+            android:text="Not foobar"
+            />
     </LinearLayout>
 
 </LinearLayout>

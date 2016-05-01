@@ -6,4 +6,5 @@ package com.example.android.theconnectseries;
 public class Event {
     int iconId;
     String title;
+    String description;
 }

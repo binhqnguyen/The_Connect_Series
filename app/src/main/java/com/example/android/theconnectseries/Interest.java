@@ -6,4 +6,5 @@ package com.example.android.theconnectseries;
 public class Interest {
     int iconId;
     String title;
+    String description;
 }

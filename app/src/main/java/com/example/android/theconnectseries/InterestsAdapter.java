@@ -38,6 +38,7 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.MyVi
         Interest current = data.get(position);
         holder.title.setText(current.title);
         holder.icon.setImageResource(current.iconId);
+        holder.description.setText(current.description);
     }
 
     @Override
@@ -48,11 +49,13 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.MyVi
     public class MyViewHolderInt extends RecyclerView.ViewHolder{
         TextView title;
         ImageView icon;
+        TextView description;
 
         public MyViewHolderInt(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
             icon = (ImageView) itemView.findViewById(R.id.image);
+            description = (TextView) itemView.findViewById(R.id.description);
         }
     }
 }

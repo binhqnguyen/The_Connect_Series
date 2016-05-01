@@ -32,10 +32,12 @@ public class InterestsFragment extends Fragment {
         List<Interest> data = new ArrayList<>();
         int[] icons = {R.drawable.logo_ames,R.drawable.logo_ames,R.drawable.logo_ames,R.drawable.logo_ames};
         String[] titles = {"Interest One","Interest Two","Interest Three","Interest Four"};
+        String[] descriptions = {"foobar","foobar","foobar","foobar"};
         for(int i = 0; i<icons.length && i<titles.length; i++){
             Interest current = new Interest();
             current.iconId= icons[i];
             current.title = titles[i];
+            current.description = descriptions[i];
             data.add(current);
         }
         return data;
