@@ -47,10 +47,10 @@ public class EventsFragment extends Fragment {
         final String delim = "[{ ,}:]+";
         // Instantiate the RequestQueue.
         RequestQueue queue = VolleySingleton.getsInstance().getRequestQueue();
-        String url ="http://www.walmart.netau.net/hello_world.php";
+        String url ="http://www.walmart.netau.net/";
 
         // Request a string response from the provided URL.
-
+/*
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -70,13 +70,14 @@ public class EventsFragment extends Fragment {
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+        */
 
         /*
         for(int y=0;y<eventsFeed.length;y++) {
             Log.w("myApp", eventsFeed[y]);
         }
         */
-/*
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -90,7 +91,7 @@ public class EventsFragment extends Fragment {
             }
         });
         queue.add(jsonObjectRequest);
-        */
+
         /*
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
