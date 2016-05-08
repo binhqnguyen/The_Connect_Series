@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -43,19 +44,42 @@ public class EventsFragment extends Fragment {
     public EventsFragment() {
     }
 
+    /*
+     * Get a field from a JSON oject.
+     * Parameters:
+     * jsonStr: jsonStr of a json object.
+     * index: index of element in the json object.
+     * fieldName: name of field in the element.
+     */
+    private static String getStringFromJsonObj(String jsonStr, int index, String fieldName) throws JSONException {
+        JSONArray arr = new JSONArray(jsonStr);
+        JSONObject jObj = arr.getJSONObject(index);
+        String returnValue = jObj.getString(fieldName);
+        return returnValue;
+    }
+
     public static void getDatabaseData(){
         final String delim = "[{ ,}:]+";
         // Instantiate the RequestQueue.
         RequestQueue queue = VolleySingleton.getsInstance().getRequestQueue();
-        String url ="http://www.walmart.netau.net/";
+        String local_host="10.0.2.2";
+        String url ="http://"+local_host+"/php.php";
 
         // Request a string response from the provided URL.
-/*
+        Log.w("myApp", url);
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        String IMSI = ""; //Get "IMSI" of the first element in the Json array.
+                        try {
+                            IMSI = getStringFromJsonObj(response, 0, "IMSI");   //Get "IMSI" of element indexed 0 in the respone.
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         Log.w("myApp", response);
+                        Log.w("myApp", IMSI);
                         eventsTitle = response.split(delim);
                         for(int i=0;i<eventsTitle.length;i++) {
                             //Log.w("myApp", eventsTitle[i]);
@@ -70,14 +94,14 @@ public class EventsFragment extends Fragment {
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
-        */
+
 
         /*
         for(int y=0;y<eventsFeed.length;y++) {
             Log.w("myApp", eventsFeed[y]);
         }
         */
-
+/*
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -91,7 +115,7 @@ public class EventsFragment extends Fragment {
             }
         });
         queue.add(jsonObjectRequest);
-
+*/
         /*
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
